@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.service.VerifyService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,6 +13,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Log
 public class VerifyServiceImpl implements VerifyService {
     @Resource
     JavaMailSender sender;
@@ -32,6 +34,8 @@ public class VerifyServiceImpl implements VerifyService {
         message.setText("您的验证码为 " + code + " 三分钟内有效");
         message.setFrom("NeoCheung023@126.com");
         message.setTo(mail);
+        log.info("邮箱已发送到：" + mail);
+
 
         sender.send(message);
     }
